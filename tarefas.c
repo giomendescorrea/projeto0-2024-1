@@ -94,6 +94,49 @@ ERROS salvar(Tarefa tarefas[], int *pos){
     return OK;
 }
 
+ERROS exportar(Tarefa tarefas[], int *pos) { 
+    char categoria[CATEGORIA]; // usa a mesm logica da criação que lista categoria
+    printf("Digite a categoria que deseja exportar: ");
+    clearBuffer();
+    fgets(categoria, CATEGORIA, stdin);
+    categoria[strcmp(categoria, "\n")] = '\0';
+    int categoria_encontrada = 0;
+    for (int i = 0; i < *pos; i++){
+      if(strcmp(tarefas[i].categoria, categoria) == 0){
+        categoria_encontrada = 1;
+        break;
+      }
+    }
+    if (!categoria_encontrada){
+      printf("Categoria não encontrada\n");
+      return TAREFAS_CATEGORIA_NAO_ENCONTRADA;
+    }
+
+    char nome_arquivo[100]; // caracteres para o usuario nomear
+    printf("Digite o nome do arquivo para exportar as tarefas: ");
+    fgets(nome_arquivo, 100, stdin);
+    nome_arquivo[strcspn(nome_arquivo, "\n")] = 0; 
+  
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo.\n");
+        return EXPORTAR_ARQUIVO;
+    }
+    int tarefas_exportadas = 0;
+    for (int i = 0; i < *pos; i++) {
+      if (strcmp(tarefas[i].categoria, categoria) == 0) {
+        fprintf(arquivo, "Prioridade: %d\n", tarefas[i].prioridade);
+        fprintf(arquivo, "Categoria: %s", tarefas[i].categoria);
+        fprintf(arquivo, "Descricao: %s", tarefas[i].descricao);
+        fprintf(arquivo, "\n");
+        tarefas_exportadas++;
+      }
+    }
+    fclose(arquivo);
+    printf("Tarefas exportadas com sucesso para o arquivo '%s'\n", nome_arquivo);
+    return OK;
+}
+
 ERROS carregar(Tarefa tarefas[], int *pos){
     FILE *f = fopen("tarefas.bin", "rb");
     if(f == NULL)

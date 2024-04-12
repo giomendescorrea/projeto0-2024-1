@@ -18,5 +18,7 @@ ERROS listar(Tarefa tarefas[], int *pos);
 ERROS salvar(Tarefa tarefas[], int *pos);
 ERROS carregar(Tarefa tarefas[], int *pos);
 ERROS exportar(Tarefa tarefas[], int *pos);
+ERROS exportar_binario(Tarefa tarefas[], int pos);
+ERROS carregar_binario(Tarefa tarefas[], int *pos);
 
 void clearBuffer();

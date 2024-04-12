@@ -13,6 +13,8 @@ int main() {
     printf("2 - Deletar tarefa\n");
     printf("3 - Listar tarefas\n");
     printf("4 - Exportar tarefas\n");
+    printf("5 - Exportar tarefas para binário\n");
+    printf("6 - Carregar tarefas de binário\n");
     printf("0 - Sair\n");
     printf("Escolha uma opcao: ");
 
@@ -29,6 +31,12 @@ int main() {
         break;
       case 4:
         resultado = exportar(tarefas, &pos);
+        break;
+      case 5:
+        resultado = exportar_binario(tarefas, pos);
+        break;
+      case 6:
+        resultado = carregar_binario(tarefas, &pos);
         break;
       case 0:
         printf("Saindo...\n");

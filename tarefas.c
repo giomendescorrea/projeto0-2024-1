@@ -49,16 +49,29 @@ ERROS deletar(Tarefa tarefas[], int *pos){
 }
 
 ERROS listar(Tarefa tarefas[], int *pos){
-    if(*pos == 0)
+    if(*pos == 0){
         return SEM_TAREFAS;
+    }
+    char categoria[CATEGORIA];
+    printf("Entre com a categoria: ");
+    clearBuffer();
+    fgets(categoria, CATEGORIA, stdin);
 
+    int tarefasencontradas = 0;
+    
     for(int i=0; i<*pos; i++){
+      if(strcmp(tarefas[i].categoria, categoria)==0){
         printf("Pos: %d\t", i+1);
         printf("Prioridade: %d\t", tarefas[i].prioridade);
         printf("Categoria: %s\t", tarefas[i].categoria);
         printf("Descricao: %s\n", tarefas[i].descricao);
+        tarefasencontradas ++;
+      }
     }
-
+    if (tarefasencontradas == 0){
+      printf("Nenhuma tarefa encontrada na categoria '%s'", categoria);
+      return TAREFAS_CATEGORIA_NAO_ENCONTRADA;
+    }
     return OK;
 }
 

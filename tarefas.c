@@ -20,6 +20,7 @@ ERROS criar(Tarefa tarefas[], int *pos){
     fgets(tarefas[*pos].descricao, DESCRICAO, stdin);
 
     *pos = *pos + 1;
+    printf("Tarefa criada com sucesso.\n");
 
     return OK;
 }
@@ -44,7 +45,7 @@ ERROS deletar(Tarefa tarefas[], int *pos){
     }
 
     *pos = *pos - 1;
-
+    printf("Tarefa deletada com sucesso.\n");
     return OK;
 }
 
@@ -152,7 +153,7 @@ ERROS carregar(Tarefa tarefas[], int *pos){
 
     if(fclose(f))
         return FECHAR;
-
+    
     return OK;
 
 }

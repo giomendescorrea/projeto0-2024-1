@@ -12,7 +12,7 @@ int main() {
     printf("1 - Criar tarefa\n");
     printf("2 - Deletar tarefa\n");
     printf("3 - Listar tarefas\n");
-    printf("4 - Exportar tarefas\n");
+    printf("4 - Exportar tarefas para TXT\n");
     printf("5 - Exportar tarefas para binário\n");
     printf("6 - Carregar tarefas de binário\n");
     printf("0 - Sair\n");

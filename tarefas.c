@@ -15,9 +15,13 @@ ERROS criar(Tarefa tarefas[], int *pos) {
   clearBuffer();
   printf("Entre com a categoria: ");
   fgets(tarefas[*pos].categoria, CATEGORIA, stdin);
-
+  int pos_categoria = strcspn(tarefas[*pos].categoria, "\n");
+  tarefas[*pos].categoria[pos_categoria] = '\0';
+  
   printf("Entre com a descricao: ");
   fgets(tarefas[*pos].descricao, DESCRICAO, stdin);
+  int pos_descricao = strcspn(tarefas[*pos].descricao, "\n");
+  tarefas[*pos].descricao[pos_descricao] = '\0';
 
   *pos = *pos + 1;
   printf("Tarefa criada com sucesso.\n");
@@ -57,10 +61,13 @@ ERROS listar(Tarefa tarefas[], int *pos) {
   printf("Entre com a categoria: ");
   clearBuffer();
   fgets(categoria, CATEGORIA, stdin);
-
+  int pos_categoria = strcspn(categoria, "\n");
+  categoria[pos_categoria] = '\0';
+  
   int tarefasencontradas = 0;
 
   for (int i = 0; i < *pos; i++) {
+    
     if (strcmp(tarefas[i].categoria, categoria) == 0) {
       printf("Pos: %d\t", i + 1);
       printf("Prioridade: %d\t", tarefas[i].prioridade);
@@ -100,7 +107,9 @@ ERROS exportar(Tarefa tarefas[], int *pos) {
   printf("Digite a categoria que deseja exportar: ");
   clearBuffer();
   fgets(categoria, CATEGORIA, stdin);
-  categoria[strcmp(categoria, "\n")] = '\0';
+  int pos_categoria = strcspn(categoria, "\n");
+  categoria[pos_categoria] = '\0';
+  
   int categoria_encontrada = 0;
   for (int i = 0; i < *pos; i++) {
     if (strcmp(tarefas[i].categoria, categoria) == 0) {
@@ -124,10 +133,11 @@ ERROS exportar(Tarefa tarefas[], int *pos) {
     return EXPORTAR_ARQUIVO;
   }
   int tarefas_exportadas = 0;
+  
   for (int i = 0; i < *pos; i++) {
     if (strcmp(tarefas[i].categoria, categoria) == 0) {
       fprintf(arquivo, "Prioridade: %d\n", tarefas[i].prioridade);
-      fprintf(arquivo, "Categoria: %s", tarefas[i].categoria);
+      fprintf(arquivo, "Categoria: %s\n", tarefas[i].categoria);
       fprintf(arquivo, "Descricao: %s", tarefas[i].descricao);
       fprintf(arquivo, "\n");
       tarefas_exportadas++;
